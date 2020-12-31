@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Abit_Blog layout index
+ *
+ * @category    Abit
+ * @package     Abit_Blog
+ * @author      Binhdt
+ *
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <!-- here we call our ui component-->
+            <uiComponent name="abit_blog_cat_listing"/>
+        </referenceContainer>
+    </body>
+</page>

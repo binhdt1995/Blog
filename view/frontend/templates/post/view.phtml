@@ -1,0 +1,13 @@
+<?php
+//@codingStandardsIgnoreFile
+
+/** @var \Abit\Blog\Block\Post\View $block */
+$post = $block->getPost();
+?>
+
+<h2 class="title-black-18"><?= $post->getTitle() ?></h2>
+
+<div class="content-detail">
+    <?= $post->getPostContent() ?>
+
+</div>

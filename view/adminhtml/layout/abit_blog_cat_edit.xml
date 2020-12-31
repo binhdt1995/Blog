@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Abit_Blog Cat layout index
+ *
+ * @category    Abit
+ * @package     Abit_Blog
+ * @author      Binhdt
+ *
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="Abit\Blog\Block\Adminhtml\Cat\Edit\Tabs" name="cat_edit_tabs"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Abit\Blog\Block\Adminhtml\Cat\Edit" name="cat_edit"/>
+        </referenceContainer>
+    </body>
+</page>

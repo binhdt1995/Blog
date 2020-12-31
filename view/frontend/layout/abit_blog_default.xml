@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+        <container name="content.top" htmlTag="div" htmlClass="box-full" >
+            <container name="new.info.wrapper" htmlTag="div" htmlClass="container mgt10" >
+                <container name="banner.top" htmlTag="div" htmlClass="content-right content-right-news" >
+                </container>
+            </container>
+        </container>
+        </referenceContainer>
+    </body>
+</page>

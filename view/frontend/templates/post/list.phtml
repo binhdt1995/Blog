@@ -1,0 +1,36 @@
+<?php
+//@codingStandardsIgnoreFile
+
+/** @var PostList $block */
+
+use Abit\Blog\Block\Post\PostList;
+
+$posts = $block->getPosts();
+?>
+<?php if ($posts->count()): ?>
+    <div class="box-news">
+        <ul class="ul-list-news">
+            <?php foreach ($posts as $post):
+                ?>
+                <li>
+                    <div class="item-news">
+                        <?php if ($post->getFeaturedImageUrl() && $post->getFeaturedShowOnHome()): ?>
+                            <div class="img-news"><a href="<?= $post->getUrl() ?>"><img src="<?= $post->getFeaturedImageUrl() ?>" alt="<?= $post->getTitle() ?>" /></a></div>
+                        <?php endif ?>
+                        <a href="<?= $post->getUrl() ?>" class="link-news"><?= $post->getTitle(); ?></a>
+                        <div class="desc-news">
+
+                        </div>
+                    </div>
+                </li><!-- b-grid -->
+            <?php endforeach ?>
+        </ul>
+    </div><!-- c-news-list -->
+
+    <?= $block->getToolbarHtml() ?>
+
+<?php else: ?>
+    <div class="message notice">
+        <div><?= __('There are no posts available for this category.') ?></div>
+    </div>
+<?php endif ?>

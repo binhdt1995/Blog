@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Abit_Webhook Module
+ *
+ * @category    Abit
+ * @package     Abit_Webhook
+ * @author      Binhdt
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Abit_Blog::blog" title="Blog" module="Abit_Blog" sortOrder="46" resource="Abit_Blog::blog" parent="Abit_Core::abit" />
+        <add id="Abit_Blog::post" title="All Posts" module="Abit_Blog" sortOrder="20" action="abit_blog/post" resource="Abit_Blog::post" parent="Abit_Blog::blog"/>
+        <add id="Abit_Blog::cat" title="Category" module="Abit_Blog" sortOrder="30" action="abit_blog/cat" resource="Abit_Blog::cat" parent="Abit_Blog::blog"/>
+        <add id="Abit_Blog::configuration" title="Configuration" module="Abit_Blog" sortOrder="1000" action="adminhtml/system_config/edit/section/abit" resource="Abit_Blog::configuration" parent="Abit_Blog::blog"/>
+    </menu>
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="2columns-right">
+
+    <update handle="abit_blog_default"/>
+
+    <body>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceContainer name="content">
+            <container name="content.top" htmlTag="div" htmlClass="box-full" >
+                <container name="new.info.wrapper" htmlTag="div" htmlClass="container mgt10" >
+                    <container name="banner.top" htmlTag="div" htmlClass="content-right content-right-news" >
+                        <block class="Abit\Blog\Block\Post\View" name="abit.post_view" template="post/view.phtml"/>
+<!--                        <block class="Abit\Blog\Block\Sidebar\TagCloud" name="blog.sidebar.tag.cloud"-->
+<!--                               template="sidebar/tag_cloud.phtml"/>-->
+
+                    </container>
+
+<!--                    <block class="Ngoc\Category\Block\RightCategory" name="blog.sidebar.category.tree" template="right_category.phtml"/>-->
+                    <block class="Abit\Blog\Block\Post\Recent" name="blog.post.recent" template="post/recent.phtml"/>
+<!--                    <block class="Mirasvit\Blog\Block\Post\View\RelatedProducts" name="product.related" template="post/view/related_products.phtml"/>-->
+<!--                    <block class="Ngoc\Category\Block\AllCategory" name="all.category" template="all_category.phtml"/>-->
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

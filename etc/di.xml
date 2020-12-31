@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/** Abit Blog di xml
+ * @category  Abit
+ * @package   Abit_Blog
+ * @author    Binhdt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="AbitBlogGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AbitBlogGridDataProvider" type="Abit\Blog\Ui\DataProvider\Post\PostDataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Abit\Blog\Model\ResourceModel\Post\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">AbitBlogGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Abit\Blog\Model\ResourceModel\Post\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_blog</argument>
+            <argument name="eventPrefix" xsi:type="string">abit_blog_post_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">post_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Abit\Blog\Model\ResourceModel\Post</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AbitBlogCategoryGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AbitBlogCategoryGridDataProvider" type="Abit\Blog\Ui\DataProvider\Category\CategoryDataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Abit\Blog\Model\ResourceModel\Cat\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">AbitBlogCategoryGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Abit\Blog\Model\ResourceModel\Cat\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_blog_cat</argument>
+            <argument name="resourceModel" xsi:type="string">Abit\Blog\Model\ResourceModel\Cat</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="abit_blog_post_list_data_source" xsi:type="string">Abit\Blog\Model\ResourceModel\Post\Grid\Collection</item>
+                <item name="abit_blog_cat_list_data_source" xsi:type="string">Abit\Blog\Model\ResourceModel\Cat\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Framework\Data\Form\Element\Image" type="Abit\Blog\Block\Adminhtml\Form\Element\Image"/>
+    <preference for="Abit\Blog\Api\Data\PostInterface" type="Abit\Blog\Model\Post" />
+</config>

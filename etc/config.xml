@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Abit_Blog>
+            <version>0.1.0</version>
+        </Abit_Blog>
+    </modules>
+
+    <global>
+    	<models>
+			<blog>
+				<class>Abit_Blog_Model</class>
+			</blog>
+    	</models>
+    </global>
+
+    <default>
+    	<abit>
+    		<blog>
+    			<route>dich-vu</route>
+    		</blog>
+    	</abit>
+    </default>
+</config>
+
