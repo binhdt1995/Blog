@@ -195,10 +195,16 @@
                 <filter>textRange</filter>
             </settings>
         </column>
-        <column name="count">
+        <column name="meta_keywords">
+            <settings>
+                <label translate="true">Meta Keywords</label>
+                <filter>textRange</filter>
+            </settings>
+        </column>
+        <column name="post_count">
             <settings>
                 <label translate="true">Count</label>
-                <value class="Abit\Blog\Ui\Category\Source\PostCount"/>
+                <options class="Abit\Blog\Model\ResourceModel\Cat\Collection"/>
             </settings>
         </column>
         <!-- Add Action with each row of grid and for this we will create a class Action -->

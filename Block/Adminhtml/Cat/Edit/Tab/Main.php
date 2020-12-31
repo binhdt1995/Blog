@@ -191,16 +191,13 @@ class Main extends Generic implements TabInterface
         }
 
         $fieldset->addField(
-            'status',
-            'select',
+            'sort_order',
+            'text',
             [
-                'name' => 'status',
-                'label' => __('Status'),
-                'id' => 'status',
-                'title' => __('Status'),
-                'values' => $this->_status->toOptionArray(),
-                'class' => 'status',
-                'required' => true,
+                'name' => 'sort_order',
+                'label' => __('Sort Order'),
+                'id' => 'sort_order',
+                'title' => __('Sort Order'),
             ]
         );
         $form->setValues($model->getData());

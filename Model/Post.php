@@ -20,6 +20,10 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
      * @var StoreManagerInterface
      */
     private $storeManager;
+    /**
+     * @var Url
+     */
+    protected $url;
 
     public function __construct(
         Context $context,
@@ -28,10 +32,12 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
         AbstractDb $resourceCollection = null,
         ScopeConfigInterface $scopeConfig,
         StoreManagerInterface $storeManager,
+        Url $url,
         array $data = []
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->storeManager = $storeManager;
+        $this->url = $url;
         parent::__construct($context, $registry, $postResource, $resourceCollection, $data);
     }
 
@@ -45,10 +51,9 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
         return $this->storeManager->getStore()->getBaseUrl();
     }
 
-    public function getUrl()
+    public function getUrl($useSid = true)
     {
-        $route = $this->scopeConfig->getValue('abit/blog/route', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        return $this->getBaseUrl() . $route . '/' . $this->getIdentifier();
+        return $this->url->getPostUrl($this, $useSid);
     }
 
     protected function getBaseImageUrl()

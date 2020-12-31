@@ -14,8 +14,15 @@
                     <label>Route Blog</label>
                     <comment>eg. "news" will make the blog accessible from domain.com/news. Must not contain any slashes. Blank for default</comment>
                 </field>
-                <field id="base_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Base </label>
+                <field id="post_per_page" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Posts Per Page</label>
+                    <comment>The number posts displayed per page. 0 to disable pages.</comment>
+                </field>
+                <field id="url_post_suffix" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL Suffix for Posts</label>
+                </field>
+                <field id="url_cat_suffix" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL Suffix for Categories</label>
                 </field>
             </group>
         </section>

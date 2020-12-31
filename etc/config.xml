@@ -18,6 +18,9 @@
     	<abit>
     		<blog>
     			<route>dich-vu</route>
+                <post_per_page>12</post_per_page>
+                <url_post_suffix/>
+                <url_cat_suffix/>
     		</blog>
     	</abit>
     </default>

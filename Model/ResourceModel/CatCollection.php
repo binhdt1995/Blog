@@ -14,7 +14,7 @@ use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class PostCollection extends AbstractCollection
+abstract class CatCollection extends AbstractCollection
 {
     /**
      * @var MetadataPool
@@ -129,6 +129,37 @@ abstract class PostCollection extends AbstractCollection
 
                     $item->setData('store_code', $storeCode);
                     $item->setData('store_id', $storeId);
+                }
+            }
+        }
+    }
+
+    /**
+     * Perform operations after collection load
+     *
+     * @param string $tableName
+     * @param string|null $linkField
+     * @return void
+     * @throws NoSuchEntityException
+     */
+    protected function performPostAfterLoad(string $tableName, ?string $linkField)
+    {
+        $linkedIds = $this->getColumnValues($linkField);
+
+        if (count($linkedIds)) {
+            $connection = $this->getConnection();
+            $postsData = [];
+            foreach ($linkedIds as $cat_id) {
+                $select = $connection->select()->from(['pc' => $this->getTable($tableName)])
+                    ->where('pc.' . $linkField . ' = (?)', $cat_id);
+                $select->columns(['count' =>'COUNT(*)']);
+                $result = $connection->fetchRow($select);
+                $postsData[$cat_id] = $result['count'];
+            }
+
+            if (count($postsData)) {
+                foreach ($this as $item) {
+                    $item->setData('post_count', $postsData[$item->getCatId()]);
                 }
             }
         }

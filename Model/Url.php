@@ -37,19 +37,25 @@ class Url
      * @var CatFactory
      */
     protected $catFactory;
+    /**
+     * @var Config
+     */
+    private $config;
 
     public function __construct(
         StoreManagerInterface $storeManager,
         ScopeConfigInterface $scopeConfig,
         PostFactory $postFactory,
         CatFactory $catFactory,
-        UrlManager $urlManager
+        UrlManager $urlManager,
+        Config $config
     ) {
         $this->storeManager = $storeManager;
         $this->scopeConfig = $scopeConfig;
         $this->postFactory = $postFactory;
         $this->catFactory = $catFactory;
         $this->urlManager = $urlManager;
+        $this->config = $config;
     }
 
     /**
@@ -61,8 +67,9 @@ class Url
     public function getPostUrl($post, $useSid = true)
     {
         $storeCode = $this->storeManager->getStore($post->getStoreId())->getCode();
+
         return $this->getUrl(
-            '/' . $post->getUrlKey(),
+            '/' . $post->getIdentifier(),
             'post',
             ['_nosid' => !$useSid, '_scope' => $storeCode]
         );
@@ -75,7 +82,7 @@ class Url
      *
      * @return string
      */
-    protected function getUrl($route, $type, $urlParams = [])
+    protected function getUrl(string $route, string $type, $urlParams = [])
     {
         $url = $this->urlManager->getUrl($this->config->getBaseRoute() . $route, $urlParams);
 
@@ -83,8 +90,8 @@ class Url
             $url = $this->addSuffix($url, $this->config->getPostUrlSuffix());
         }
 
-        if ($type == 'category' && $this->config->getCategoryUrlSuffix()) {
-            $url = $this->addSuffix($url, $this->config->getCategoryUrlSuffix());
+        if ($type == 'category' && $this->config->getCatUrlSuffix()) {
+            $url = $this->addSuffix($url, $this->config->getCatUrlSuffix());
         }
 
         return $url;
@@ -112,7 +119,7 @@ class Url
      */
     public function getCategoryUrl($category, $urlParams = [])
     {
-        return $this->getUrl('/' . $category->getUrlKey(), 'category', $urlParams);
+        return $this->getUrl('/' . $category->getIdentifier(), 'category', $urlParams);
     }
 
     /**
@@ -123,7 +130,7 @@ class Url
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function match($pathInfo)
+    public function match(string $pathInfo)
     {
         $identifier = trim($pathInfo, '/');
         $parts = explode('/', $identifier);

@@ -4,6 +4,7 @@ namespace Abit\Blog\Block\Post;
 
 use Abit\Blog\Model\Cat;
 use Abit\Blog\Model\PostFactory;
+use Abit\Blog\Model\Config;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
@@ -26,10 +27,15 @@ class PostList extends \Magento\Framework\View\Element\Template
      * @var Template\Context
      */
     protected $context;
+    /**
+     * @var Config
+     */
+    protected $config;
 
     public function __construct(
         Template\Context $context,
         PostFactory $postFactory,
+        Config $config,
         ScopeConfigInterface $scopeConfig,
         Registry $registry,
         array $data = []
@@ -38,6 +44,7 @@ class PostList extends \Magento\Framework\View\Element\Template
         $this->scopeConfig = $scopeConfig;
         $this->registry = $registry;
         $this->context = $context;
+        $this->config = $config;
         parent::__construct($context, $data);
     }
 
@@ -48,6 +55,9 @@ class PostList extends \Magento\Framework\View\Element\Template
             ->addStoreFilter($this->context->getStoreManager()->getStore()->getId());
         if ($category = $this->getCategory()) {
             $collection->addCatFilter($category->getId());
+        }
+        if ($this->config->getPostPerPage()) {
+            $collection->setPageSize($this->config->getPostPerPage());
         }
 
         return $collection;

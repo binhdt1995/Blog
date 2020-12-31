@@ -2,12 +2,20 @@
 
 namespace Abit\Blog\Ui\Category\Source;
 
+use Abit\Blog\Model\ResourceModel\Cat;
 use Magento\Framework\Data\ValueSourceInterface;
 
 class PostCount implements ValueSourceInterface
 {
-    public function __construct()
-    {
+    /**
+     * @var Cat
+     */
+    private $_category;
+
+    public function __construct(
+        Cat $cat
+    ) {
+        $this->_category = $cat;
     }
 
     /**
