@@ -5,10 +5,13 @@ namespace Abit\Blog\Model;
 use Abit\Blog\Api\Data\PostInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\WriteInterface;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\UrlInterface as MagentoUrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
 
 class Post extends \Magento\Framework\Model\AbstractModel implements PostInterface
 {
@@ -25,6 +28,11 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
      */
     protected $url;
 
+    /**
+     * @var WriteInterface
+     */
+    private $_mediaDirectory;
+
     public function __construct(
         Context $context,
         Registry $registry,
@@ -32,11 +40,13 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
         AbstractDb $resourceCollection = null,
         ScopeConfigInterface $scopeConfig,
         StoreManagerInterface $storeManager,
+        Filesystem $filesystem,
         Url $url,
         array $data = []
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->storeManager = $storeManager;
+        $this->_mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->url = $url;
         parent::__construct($context, $registry, $postResource, $resourceCollection, $data);
     }
@@ -73,7 +83,16 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
 
     public function getFeaturedImageUrl()
     {
-        return $this->getBaseImageUrl() . $this->getData('filename');
+        if ($this->_mediaDirectory->isFile($this->getData('filename'))) {
+            return $this->getBaseImageUrl() . $this->getData('filename');
+        } else {
+            return $this->getPlaceHolderImage();
+        }
+    }
+
+    public function getPlaceHolderImage()
+    {
+        return $this->getBaseImageUrl() . 'catalog/product/placeholder/' . $this->scopeConfig->getValue('catalog/placeholder/small_image_placeholder');
     }
 
     /**

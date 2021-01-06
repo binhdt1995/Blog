@@ -210,7 +210,7 @@ class Url
      */
     protected function trimSuffix($key)
     {
-        $suffix = $this->config->getCategoryUrlSuffix();
+        $suffix = $this->config->getCatUrlSuffix();
         //user can enter .html or html suffix
         if ($suffix != '' && $suffix[0] != '.') {
             $suffix = '.' . $suffix;

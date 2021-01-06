@@ -24,7 +24,6 @@ class MassDelete extends \Magento\Backend\App\Action
         Filter $filter,
         CollectionFactory $collectionFactory
     ) {
-        var_dump('2323');die();
         $this->_filter = $filter;
         $this->_collectionFactory = $collectionFactory;
         parent::__construct($context);

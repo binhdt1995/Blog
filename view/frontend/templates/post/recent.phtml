@@ -1,42 +1,37 @@
 <?php
-
 use Abit\Blog\Block\Post\Recent;
 
 /** @var Recent $block */
 $postCollection = $block->getCollection()
-    ->setPageSize($this->getPageSize());
+    ->setPageSize($this->getPageSize())
+    ->setOrder('created_time', 'desc');
+$helper = $this->helper('Abit\Blog\Helper\Data');
+
 ?>
 
 <div class="box-full">
-	<h2 class="title-black title-mg0">Bài viết khác</h2>
-	<div class="box-news slide-4-news">
-		<ul class="ul-list-news slide4item">
-		<?php if ($postCollection->count()): ?>
-		<?php foreach ($postCollection as $post): ?>
-			<li>
-				<div class="item-news">
-					<div class="img-news">
-					<?php if ($post->getFeaturedImageUrl() && $post->getFeaturedShowOnHome()): ?>
-						<a href="<?= $post->getUrl() ?>">
-							<img
-									src="<?= $post->getFeaturedImageUrl() ?>"
-									alt="<?= $block->getFeaturedAlt($post) ?>"
-								<?= $block->getImageWidth() ? "width=\"" . $block->getImageWidth() . "px\"" : '' ?>
-								<?= $block->getImageHeight() ? "height=\"" . $block->getImageHeight() . "px\"" : '' ?>
-							/>
-						</a>
-					<?php endif ?>
-					</div>
-					<a href="<?= $post->getUrl() ?>" class="link-news"><?= $post->getName() ?></a>
-					<div class="desc-news">
-						 <?= $post->getShortContent() ?>
-					</div>
-				</div>
-			</li>
-		<?php endforeach ?>
-		<?php endif ?>
-		</ul>
-	</div>
+    <h2 class="title-black title-mg0">Bài viết khác</h2>
+    <div class="box-news slide-4-news">
+        <ul class="ul-list-news slide4item owl-carousel">
+            <?php if ($postCollection->count()): ?>
+                <?php foreach ($postCollection as $post):  ?>
+                    <li>
+                        <div class="item-news">
+                            <div class="img-news">
+                                <?php if ($post->getFeaturedImageUrl()): ?>
+                                    <a href="<?= $post->getUrl() ?>">
+                                        <img src="<?= $post->getFeaturedImageUrl() ?>" alt="<?= $post->getTitle() ?>"/>
+                                    </a>
+                                <?php endif ?>
+                            </div>
+                            <a href="<?= $post->getUrl() ?>" class="link-news"><?= $helper->trimWord($post->getTitle(), 10); ?></a>
+                            <div class="desc-news">
+                                <?= $helper->trimWord($post->getShortContent(), 23); ?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach ?>
+            <?php endif ?>
+        </ul>
+    </div>
 </div>
-
-

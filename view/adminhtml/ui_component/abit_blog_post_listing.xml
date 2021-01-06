@@ -180,12 +180,14 @@
                 <indexField>post_id</indexField>
                 <resizeEnabled>false</resizeEnabled>
                 <resizeDefaultWidth>55</resizeDefaultWidth>
+                <sortable>false</sortable>
             </settings>
         </selectionsColumn>
         <column name="post_id">
             <settings>
                 <label translate="true">Id</label>
                 <filter>textRange</filter>
+                <sortable>true</sortable>
                 <sorting>desc</sorting>
             </settings>
         </column>
