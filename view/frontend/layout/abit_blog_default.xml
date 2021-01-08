@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+
+        <!-- <referenceBlock name="sidebar.additional" remove="true"/>
+
+        <referenceBlock name="sidebar.main" remove="true"/>
+
+        <move element="page.main.title" destination="main" before="-"/> -->
         <referenceContainer name="content">
-        <container name="content.top" htmlTag="div" htmlClass="box-full" >
-            <container name="new.info.wrapper" htmlTag="div" htmlClass="container mgt10" >
-                <container name="banner.top" htmlTag="div" htmlClass="content-right content-right-news" >
+            <container name="content.top" htmlTag="div" htmlClass="box-full" >
+                <container name="new.info.wrapper" htmlTag="div" htmlClass="container mgt10" >
+                    <container name="banner.top" htmlTag="div" htmlClass="content-right content-right-news" >
+                        <!-- <block class="Magento\Framework\View\Element\Template" name="news.banner" template="Magento_Cms::new_banner.phtml"/> -->
+                        <block class="Abit\Blog\Block\Post\PostList" name="blog.post.list" template="post/list.phtml">
+                            <container name="blog.post.list.additional"/>
+
+                            <block class="Abit\Blog\Block\Post\PostList\Toolbar" name="blog.post.list.toolbar"
+                                   template="post/list/toolbar.phtml">
+                                <block class="Abit\Blog\Block\Html\Pager" name="post_pager"/>
+                            </block>
+
+                            <action method="setToolbarBlockName">
+                                <argument name="name" xsi:type="string">blog.post.list.toolbar</argument>
+                            </action>
+                        </block>
+                    </container>
+
+                    <block class="Ngoc\Category\Block\RightCategory" name="blog.sidebar.category.tree" template="right_category.phtml"/>
+
+
+                    <block class="Magento\Framework\View\Element\Template" name="new.product" template="Magento_Cms::home_product_new.phtml"/>
+                    <block class="Ngoc\Category\Block\AllCategory" name="all.category" template="all_category.phtml"/>
                 </container>
             </container>
-        </container>
+
+            <!-- <referenceContainer name="div.sidebar.main">
+                <block class="Mirasvit\Blog\Block\Sidebar\CategoryTree" name="blog.sidebar.category.tree"
+                       template="sidebar/category_tree.phtml"/>
+            </referenceContainer> -->
+
         </referenceContainer>
     </body>
 </page>

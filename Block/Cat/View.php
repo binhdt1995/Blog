@@ -46,6 +46,7 @@ class View extends \Magento\Framework\View\Element\Template
     public function getCategory()
     {
         $category = $this->_coreRegistry->registry('current_blog_cat');
+
         if ($category) {
             $this->setData('current_blog_cat', $category);
         }
